@@ -1,5 +1,5 @@
 ﻿using Refit;
-
+using PulumiApi.Models;
 namespace PulumiApi;
 
 public class ApiClient
@@ -20,6 +20,11 @@ public class ApiClient
     public async Task<GetStackResponse> GetStack(string organization, string project, string stack)
     {
         return await _api.GetStack(_token, organization, project, stack);
+    }
+
+    public async Task<GetStackStateResponse> GetStackState(string organization, string project, string stack)
+    {
+        return await _api.GetStackState(_token, organization, project, stack);
     }
 }
 
