@@ -5,9 +5,9 @@ namespace PulumiApi.Models;
 
 public class ListStackUpdatesResponse
 {
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("updates")]
     public List<Update>? Updates { get; set; }
+
 
     public override string ToString()
     {
@@ -15,11 +15,25 @@ public class ListStackUpdatesResponse
     }
 }
 
-
-
-
-
 public class Update
+{
+    [JsonPropertyName("info")]
+    public Info? Info { get; set; }
+
+    [JsonPropertyName("updateID")]
+    public string? UpdateID { get; set; }
+
+    [JsonPropertyName("version")]
+    public int? version { get; set; }
+
+    [JsonPropertyName("latestVersion")]
+    public int? latestVersion { get; set; }
+
+    [JsonPropertyName("requestedBy")]
+    public RequestedBy? RequestedBy { get; set; }
+}
+
+public class Info
 {
     [JsonPropertyName("kind")]
     public string? Kind { get; set; }
@@ -51,6 +65,19 @@ public class Update
 
 
 
+
+public class RequestedBy
+{
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+    [JsonPropertyName("githubLogin")]
+    public string? githubLogin { get; set; }
+
+    [JsonPropertyName("avatarUrl")]
+    public string? avatarUrl { get; set; }
+
+}
 public class Environment
 {
     [JsonPropertyName("exec.kind")]

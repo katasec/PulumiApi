@@ -1,3 +1,7 @@
+using System.Security.Cryptography.X509Certificates;
+using System.Collections.Generic;
+using System.Collections;
+
 namespace PulumiApi.Test
 {
     public class Tests
@@ -50,6 +54,27 @@ namespace PulumiApi.Test
         {
             var result = await client.ListStackUpdates("katasec","ark-init","dev");
             Console.WriteLine(result.ToString());
+        }
+
+        [Test]
+        public async Task GetUpdateStatus()
+        {
+            var result = await client.ListStackUpdates("katasec","ark-init","dev");
+
+            if (result.Updates != null)
+            {
+                var latestRevision = result.Updates.Max(x => x.version);
+                var latestUpdate = result.Updates.First(x => x.version == latestRevision);
+                var updateId = latestUpdate.UpdateID;
+
+                var status  = await client.GetUpdateStatus("katasec", "ark-init", "dev", updateId);
+                Console.WriteLine(status.Status);
+            }
+            else
+            {
+                Console.WriteLine("No updates found");
+            }
+
         }
     }
 }
