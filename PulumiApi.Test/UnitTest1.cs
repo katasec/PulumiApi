@@ -1,17 +1,24 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.Generic;
 using System.Collections;
+using System.Diagnostics;
+using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 
 namespace PulumiApi.Test
 {
     public class Tests
     {
         private ApiClient client;
+        private string orgName;
+        private string projectName;
+        private string stackName;
 
         [SetUp]
-        public void Setup()
+        public async Task Setup()
         {
-             client = new ApiClient();
+            client = new ApiClient();
+            (orgName, projectName, stackName) = await GetStackInfo();
         }
 
         [Test]
@@ -28,21 +35,21 @@ namespace PulumiApi.Test
         [Test]
         public async Task GetStack()
         {
-            var result = await client.GetStack("katasec","azurecloudspace","dev");
+            var result = await client.GetStack(orgName,projectName,stackName);
             Console.WriteLine(result.ToString());
         }
 
         [Test]
         public async Task GetStackState()
         {
-            var result = await client.GetStackState("katasec","ark-init","dev");
+            var result = await client.GetStackState(orgName, projectName, stackName );
             Console.WriteLine(result.ToString());
         }
 
         [Test]
         public async Task GetStackOutput()
         {
-            var result = await client.GetStackOutput("katasec","ark-init","dev");
+            var result = await client.GetStackOutput(orgName, projectName, stackName);
             foreach (var item in result)
             {
                 Console.WriteLine(item.Key + " " + item.Value);
@@ -52,14 +59,14 @@ namespace PulumiApi.Test
         [Test]
         public async Task ListStackUpdates()
         {
-            var result = await client.ListStackUpdates("katasec","ark-init","dev");
+            var result = await client.ListStackUpdates(orgName, projectName, stackName);
             Console.WriteLine(result.ToString());
         }
 
         [Test]
         public async Task GetUpdateStatus()
         {
-            var result = await client.ListStackUpdates("katasec","ark-init","dev");
+            var result = await client.ListStackUpdates(orgName, projectName, stackName);
 
             if (result.Updates != null)
             {
@@ -67,7 +74,7 @@ namespace PulumiApi.Test
                 var latestUpdate = result.Updates.First(x => x.version == latestRevision);
                 var updateId = latestUpdate.UpdateID;
 
-                var status  = await client.GetUpdateStatus("katasec", "ark-init", "dev", updateId);
+                var status  = await client.GetUpdateStatus(orgName, projectName, stackName, updateId);
                 Console.WriteLine(status.Status);
             }
             else
@@ -75,6 +82,22 @@ namespace PulumiApi.Test
                 Console.WriteLine("No updates found");
             }
 
+        }
+
+        public async Task<Tuple<string?,string?,string?>?> GetStackInfo()
+        {
+            var result = await client.ListStacks();
+            if (result.Stacks!= null)
+            {
+                var myStack = result.Stacks[0];
+
+                var orgName = myStack.OrgName;
+                var projectName = myStack.ProjectName;
+                var stackName = myStack.StackName;
+
+                return Tuple.Create(orgName, projectName, stackName);
+            }
+            return null;
         }
     }
 }
