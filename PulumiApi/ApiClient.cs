@@ -12,9 +12,14 @@ public class ApiClient
         _api = RestService.For<IPulumiApi>(hostUrl);
     }
 
-    public async Task<GetStacksResponse> GetStacks()
+    public async Task<ListStacksResponse> ListStacks()
     {
-        return await _api.GetStacks(_token);
+        return await _api.ListStacks(_token);
+    }
+
+    public async Task<GetStackResponse> GetStack(string organization, string project, string stack)
+    {
+        return await _api.GetStack(_token, organization, project, stack);
     }
 }
 

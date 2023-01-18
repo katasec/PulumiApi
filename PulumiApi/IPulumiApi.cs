@@ -6,5 +6,8 @@ namespace PulumiApi;
 public interface IPulumiApi
 {
     [Get("/api/user/stacks")]
-    Task<GetStacksResponse> GetStacks([Header("Authorization")] string token);
+    Task<ListStacksResponse> ListStacks([Header("Authorization")] string token);
+
+    [Get("/api/stacks/{organization}/{project}/{stack}")]
+    Task<GetStackResponse> GetStack([Header("Authorization")] string token, string organization, string project, string stack);
 }

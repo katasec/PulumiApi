@@ -2,7 +2,7 @@
 
 namespace PulumiApi;
 
-public class GetStacksResponse
+public class ListStacksResponse
 {
     [JsonPropertyName("stacks")]
     public Stack[]? Stacks {get; set; }
