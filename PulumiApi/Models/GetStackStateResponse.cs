@@ -58,13 +58,13 @@ public partial class Resource
     public string? Type { get; set; }
 
     //[JsonPropertyName("outputs")]
-    //public  Dictionary<string,string>? Outputs { get; set; }
+    public  Dictionary<string,object>? Outputs { get; set; }
 
     [JsonPropertyName("id")]
     public string? Id { get; set; }
 
-    //[JsonPropertyName("inputs")]
-    //public Dictionary<string, string>? Inputs { get; set; }
+    [JsonPropertyName("inputs")]
+    public Dictionary<string, object>? Inputs { get; set; }
 
     //[JsonPropertyName("inputs")]
     //public Inputs? Inputs { get; set; }
