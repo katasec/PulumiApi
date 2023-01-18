@@ -44,5 +44,12 @@ namespace PulumiApi.Test
                 Console.WriteLine(item.Key + " " + item.Value);
             }
         }
+
+        [Test]
+        public async Task ListStackUpdates()
+        {
+            var result = await client.ListStackUpdates("katasec","ark-init","dev");
+            Console.WriteLine(result.ToString());
+        }
     }
 }

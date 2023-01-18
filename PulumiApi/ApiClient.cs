@@ -55,5 +55,10 @@ public class ApiClient
 
         return outputs;
     }
+
+        public async Task<ListStackUpdatesResponse> ListStackUpdates(string organization, string project, string stack)
+    {
+        return await _api.ListStackUpdates(_token, organization, project, stack);
+    }
 }
 

@@ -14,4 +14,8 @@ public interface IPulumiApi
     [Get("/api/stacks/{organization}/{project}/{stack}/export")]
     Task<GetStackStateResponse> GetStackState([Header("Authorization")] string token, string organization, string project, string stack);
 
+
+    [Get("/api/stacks/{organization}/{project}/{stack}/updates")]
+    Task<ListStackUpdatesResponse> ListStackUpdates([Header("Authorization")] string token, string organization, string project, string stack);
+
 }
