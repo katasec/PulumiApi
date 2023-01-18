@@ -61,6 +61,11 @@ public class ApiClient
         return await _api.ListStackUpdates(_token, organization, project, stack);
     }
 
+    public async Task<Update> ListStackUpdatesLatest(string organization, string project, string stack)
+    {
+        return await _api.ListStackUpdatesLatest(_token, organization, project, stack);
+    }
+
     public async Task<GetUpdateStatusResponse> GetUpdateStatus(string organization, string project, string stack, string updateId)
     {
         return await _api.GetUpdateStatus(_token, organization, project, stack, updateId);

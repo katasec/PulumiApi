@@ -18,6 +18,9 @@ public interface IPulumiApi
     [Get("/api/stacks/{organization}/{project}/{stack}/updates?output-type=service")]
     Task<ListStackUpdatesResponse> ListStackUpdates([Header("Authorization")] string token, string organization, string project, string stack);
 
+    [Get("/api/stacks/{organization}/{project}/{stack}/updates/latest?output-type=service")]
+    Task<Update> ListStackUpdatesLatest([Header("Authorization")] string token, string organization, string project, string stack);
+
     [Get("/api/stacks/{organization}/{project}/{stack}/update/{updateId}")]
     Task<GetUpdateStatusResponse> GetUpdateStatus([Header("Authorization")] string token, string organization, string project, string stack, string updateId);
 

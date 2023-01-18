@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace PulumiApi.Models;
 
+
 public class ListStackUpdatesResponse
 {
     [JsonPropertyName("updates")]
@@ -98,5 +99,9 @@ public class ResourceChanges
     [JsonPropertyName("same")]
     public int? Same { get; set; }
 
+    public override string ToString()
+    {
+        return JsonSerializer.Serialize(this, new JsonSerializerOptions{WriteIndented = true });
+    }
 }
 

@@ -19,6 +19,7 @@ namespace PulumiApi.Test
         {
             client = new ApiClient();
             (orgName, projectName, stackName) = await GetStackInfo();
+            projectName = "azurecloudspace";
         }
 
         [Test]
@@ -50,9 +51,16 @@ namespace PulumiApi.Test
         public async Task GetStackOutput()
         {
             var result = await client.GetStackOutput(orgName, projectName, stackName);
-            foreach (var item in result)
+            if (result != null)
             {
-                Console.WriteLine(item.Key + " " + item.Value);
+                foreach (var item in result)
+                {
+                    Console.WriteLine(item.Key + " " + item.Value);
+                }
+            } 
+            else
+            {
+                Console.WriteLine("Output was null");
             }
         }
 
@@ -60,6 +68,10 @@ namespace PulumiApi.Test
         public async Task ListStackUpdates()
         {
             var result = await client.ListStackUpdates(orgName, projectName, stackName);
+
+            var version = result.Updates[0].version;
+            var pulumiUrl = $"https://app.pulumi.com/{orgName}/{projectName}/{stackName}/updates/{version}";
+            Console.WriteLine("Pulumi Url: " + pulumiUrl);
             Console.WriteLine(result.ToString());
         }
 
@@ -98,6 +110,13 @@ namespace PulumiApi.Test
                 return Tuple.Create(orgName, projectName, stackName);
             }
             return null;
+        }
+
+                [Test]
+        public async Task ListStackUpdatesLatest()
+        {
+            var result = await client.ListStackUpdatesLatest(orgName, projectName, stackName);
+            Console.WriteLine(result.Info.ResourceChanges);
         }
     }
 }
