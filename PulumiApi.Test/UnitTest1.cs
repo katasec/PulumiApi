@@ -116,7 +116,7 @@ namespace PulumiApi.Test
         public async Task ListStackUpdatesLatest()
         {
             var result = await client.ListStackUpdatesLatest(orgName, projectName, stackName);
-            Console.WriteLine(result.Info.ResourceChanges);
+            Console.WriteLine(result);
         }
     }
 }

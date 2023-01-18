@@ -32,6 +32,11 @@ public class Update
 
     [JsonPropertyName("requestedBy")]
     public RequestedBy? RequestedBy { get; set; }
+
+    public override string ToString()
+    {
+        return JsonSerializer.Serialize(this, new JsonSerializerOptions{WriteIndented = true });
+    }
 }
 
 public class Info
@@ -98,6 +103,9 @@ public class ResourceChanges
 
     [JsonPropertyName("same")]
     public int? Same { get; set; }
+
+    [JsonPropertyName("update")]
+    public int? Update { get; set; }
 
     public override string ToString()
     {
