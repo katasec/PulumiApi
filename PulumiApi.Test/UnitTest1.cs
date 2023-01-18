@@ -2,15 +2,12 @@ namespace PulumiApi.Test
 {
     public class Tests
     {
-        private readonly ApiClient client;
+        private ApiClient client;
 
-        public Tests()
-        {
-            client = new ApiClient();
-        }
         [SetUp]
         public void Setup()
         {
+             client = new ApiClient();
         }
 
         [Test]
@@ -18,7 +15,6 @@ namespace PulumiApi.Test
         {
 
             var result = await client.ListStacks();
-
             foreach (Stack stack in result.Stacks)
             {
                 Console.WriteLine($"{stack.OrgName} {stack.ProjectName} {stack.StackName} {stack.ResourceCount}");
@@ -29,7 +25,6 @@ namespace PulumiApi.Test
         public async Task GetStack()
         {
             var result = await client.GetStack("katasec","azurecloudspace","dev");
-
             Console.WriteLine(result.ToString());
         }
 
@@ -37,7 +32,6 @@ namespace PulumiApi.Test
         public async Task GetStackState()
         {
             var result = await client.GetStackState("katasec","ark-init","dev");
-
             Console.WriteLine(result.ToString());
         }
 
