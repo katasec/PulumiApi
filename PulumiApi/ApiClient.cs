@@ -2,6 +2,7 @@
 using PulumiApi.Models;
 using System.Collections;
 using System.Reflection.Metadata.Ecma335;
+using System.ComponentModel.Design;
 
 namespace PulumiApi;
 
@@ -69,6 +70,12 @@ public class ApiClient
     public async Task<GetUpdateStatusResponse> GetUpdateStatus(string organization, string project, string stack, string updateId)
     {
         return await _api.GetUpdateStatus(_token, organization, project, stack, updateId);
+    }
+
+    public async Task<string> GetStackUpdatesLatestUrl(string organization, string project, string stack)
+    {
+        var latestUpdate = await _api.ListStackUpdatesLatest(_token, organization, project, stack);
+        return $"https://app.pulumi.com/{organization}/{project}/{stack}/updates/{latestUpdate.version}";
     }
 
 }

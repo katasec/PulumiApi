@@ -124,7 +124,27 @@ namespace PulumiApi.Test
         public async Task ListStackUpdatesLatest()
         {
             var result = await client.ListStackUpdatesLatest(orgName, projectName, stackName);
-            Console.WriteLine(result);
+            
+            //Console.WriteLine(result);
+            Console.WriteLine(result.UpdateID);
+            Console.WriteLine(result.Info.StartTimeDt);
+            Console.WriteLine(result.Info.EndTimeDt);
+            Console.WriteLine(result.Info.Result);
+
+            var delete = result.Info.ResourceChanges.Delete == null ? 0 : result.Info.ResourceChanges.Delete;
+            var create = result.Info.ResourceChanges.Create == null ? 0 : result.Info.ResourceChanges.Create;
+            var same = result.Info.ResourceChanges.Same == null ? 0 : result.Info.ResourceChanges.Same;
+            var update = result.Info.ResourceChanges.Update == null ? 0 : result.Info.ResourceChanges.Update;
+
+            Console.WriteLine($"Delete count:{delete}");
+            Console.WriteLine($"Create count:{create}");
+            Console.WriteLine($"Same count:{same}");
+            Console.WriteLine($"Update count:{update}");
+
+            var pulumiUrl = await client.GetStackUpdatesLatestUrl(orgName, projectName, stackName);
+            Console.WriteLine(pulumiUrl);
+
+            
         }
     }
 }
