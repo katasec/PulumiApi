@@ -5,12 +5,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Title>A dotnet client for the Pulumi Service Rest API.</Title>
-    <Version>0.0.2</Version>
+    <Version>0.0.4</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/katasec/PulumiApi</PackageProjectUrl>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <RepositoryUrl>git@github.com:katasec/PulumiApi.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageId>Katasec.$(AssemblyName)</PackageId>
+    <Description>A dotnet client for the Pulumi Service Rest API (https://www.pulumi.com/docs/reference/service-rest-api/)</Description>
   </PropertyGroup>
 
   <ItemGroup>
