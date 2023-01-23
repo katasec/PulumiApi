@@ -127,9 +127,9 @@ namespace PulumiApi.Test
             
             //Console.WriteLine(result);
             Console.WriteLine(result.UpdateID);
-            Console.WriteLine(result.Info.StartTimeDt);
-            Console.WriteLine(result.Info.EndTimeDt);
-            Console.WriteLine(result.Info.Result);
+            Console.WriteLine(result.Info?.StartTimeDt);
+            Console.WriteLine(result.Info?.EndTimeDt);
+            Console.WriteLine(result.Info?.Result);
 
             var delete = result.Info?.ResourceChanges?.Delete == null ? 0 : result.Info.ResourceChanges.Delete;
             var create = result.Info?.ResourceChanges?.Create == null ? 0 : result.Info.ResourceChanges.Create;
