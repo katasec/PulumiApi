@@ -15,3 +15,12 @@ result.Stacks?.ToList().ForEach(x =>
     Console.WriteLine($"- {x.OrgName}/{x.ProjectName}/{x.StackName}");
 });
 ```
+
+Sample output:
+
+```
+Stacks in your account:
+- katasec/hello/dev
+- katasec/azurecloudspace/dev
+- katasec/ark-init/dev
+```
