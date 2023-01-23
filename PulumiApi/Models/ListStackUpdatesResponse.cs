@@ -3,7 +3,11 @@ using System.Text.Json.Serialization;
 
 namespace PulumiApi.Models;
 
-
+public static class Constants 
+{
+    public static readonly DateTime Epoch = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+    public const string DateTimeFormat = "yyyy/MM/dd hh:mm:ss";
+}
 public class ListStackUpdatesResponse
 {
     [JsonPropertyName("updates")]
@@ -43,6 +47,18 @@ public class Info
 {
     [JsonPropertyName("kind")]
     public string? Kind { get; set; }
+
+    public DateTime EndTimeDt { 
+        get{
+            return Constants.Epoch.AddSeconds(Convert.ToDouble(EndTime));
+        } 
+    }
+
+    public DateTime StartTimeDt { 
+        get{ 
+            return Constants.Epoch.AddSeconds(Convert.ToDouble(StartTime));
+        } 
+    }
 
     [JsonPropertyName("startTime")]
     public long StartTime { get;set;}

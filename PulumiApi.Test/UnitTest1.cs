@@ -80,14 +80,22 @@ namespace PulumiApi.Test
         {
             var result = await client.ListStackUpdates(orgName, projectName, stackName);
 
+             
             if (result.Updates != null)
             {
                 var latestRevision = result.Updates.Max(x => x.version);
                 var latestUpdate = result.Updates.First(x => x.version == latestRevision);
+
                 var updateId = latestUpdate.UpdateID;
 
                 var status  = await client.GetUpdateStatus(orgName, projectName, stackName, updateId);
                 Console.WriteLine(status.Status);
+                Console.WriteLine(latestUpdate.Info.StartTime);
+                Console.WriteLine(latestUpdate.Info.StartTimeDt);
+                Console.WriteLine(latestUpdate.Info.EndTime);
+                Console.WriteLine(latestUpdate.Info.EndTimeDt);
+                
+
             }
             else
             {
