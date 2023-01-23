@@ -8,10 +8,10 @@ A dotnet client for the [Pulumi Service Rest API](https://www.pulumi.com/docs/re
 
 ```csharp
 var client = new PulumiApi.ApiClient();
-var stacks = client.ListStacks();
+var result = await client.ListStacks();
 
 Console.WriteLine("Stacks in your account:");
-stacks.Result.Stacks?.ToList().ForEach(x =>
+result.Stacks?.ToList().ForEach(x =>
 {
     Console.WriteLine($"- {x.OrgName}/{x.ProjectName}/{x.StackName}");
 });
