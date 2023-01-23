@@ -1,10 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-using System.Collections.Generic;
-using System.Collections;
-using System.Diagnostics;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
-
 namespace PulumiApi.Test
 {
     public class Tests
