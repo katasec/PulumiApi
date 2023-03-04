@@ -1,3 +1,4 @@
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Resources;
 using PulumiApi.Models;
 
 namespace PulumiApi.Test
@@ -38,8 +39,30 @@ namespace PulumiApi.Test
         [Test]
         public async Task GetStackState()
         {
+            var result = await client.GetStackState(orgName, projectName, stackName);
+            Console.WriteLine(result.ToJson() );
+        }
+
+        [Test]
+        public async Task GetResourceGroupFromStack()
+        {
             var result = await client.GetStackState(orgName, projectName, stackName );
-            Console.WriteLine(result.ToJson());
+            
+            if (result.Deployment != null)
+            {
+                Console.WriteLine(result.Deployment.GetAzureResourceGroup("rg-ameer"));
+            }
+        }
+
+        [Test]
+        public async Task GetVNetFromStack()
+        {
+            var result = await client.GetStackState(orgName, projectName, stackName);
+
+            if (result.Deployment != null)
+            {
+                Console.WriteLine(result.Deployment.GetAzureVnet("ameer"));
+            }
         }
 
         [Test]
@@ -63,10 +86,6 @@ namespace PulumiApi.Test
         public async Task ListStackUpdates()
         {
             var result = await client.ListStackUpdates(orgName, projectName, stackName);
-
-            var version = result.Updates[0].version;
-            var pulumiUrl = $"https://app.pulumi.com/{orgName}/{projectName}/{stackName}/updates/{version}";
-            Console.WriteLine("Pulumi Url: " + pulumiUrl);
             Console.WriteLine(result.ToJson());
         }
 
@@ -138,6 +157,13 @@ namespace PulumiApi.Test
 
             var pulumiUrl = await client.GetStackUpdatesLatestUrl(orgName, projectName, stackName);
             Console.WriteLine(pulumiUrl);
+        }
+
+        [Test]
+        public void Stuff()
+        {
+            var x = "This is Ameer";
+            Console.WriteLine(x.EndsWith("Ameer"));
         }
     }
 }
