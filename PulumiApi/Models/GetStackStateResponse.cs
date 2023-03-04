@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PulumiApi.Models;
 
-public class GetStackStateResponse
+public class GetStackStateResponse : BaseResponse
 {
     [JsonPropertyName("version")]
     public int? Version { get; set; }
@@ -16,10 +16,10 @@ public class GetStackStateResponse
     [JsonPropertyName("deployment")]
     public Deployment? Deployment { get; set; }
 
-    public override string ToString()
-    {
-        return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
-    }
+    //public override string ToString()
+    //{
+    //    return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+    //}
 }
 
 public class Deployment

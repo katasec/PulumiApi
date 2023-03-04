@@ -1,3 +1,5 @@
+using PulumiApi.Models;
+
 namespace PulumiApi.Test
 {
     public class Tests
@@ -30,14 +32,14 @@ namespace PulumiApi.Test
         public async Task GetStack()
         {
             var result = await client.GetStack(orgName,projectName,stackName);
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.ToJson());
         }
 
         [Test]
         public async Task GetStackState()
         {
             var result = await client.GetStackState(orgName, projectName, stackName );
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.ToJson());
         }
 
         [Test]
@@ -65,7 +67,7 @@ namespace PulumiApi.Test
             var version = result.Updates[0].version;
             var pulumiUrl = $"https://app.pulumi.com/{orgName}/{projectName}/{stackName}/updates/{version}";
             Console.WriteLine("Pulumi Url: " + pulumiUrl);
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.ToJson());
         }
 
         [Test]

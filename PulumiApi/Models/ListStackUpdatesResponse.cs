@@ -8,16 +8,10 @@ public static class Constants
     public static readonly DateTime Epoch = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
     public const string DateTimeFormat = "yyyy/MM/dd hh:mm:ss";
 }
-public class ListStackUpdatesResponse
+public class ListStackUpdatesResponse : BaseResponse
 {
     [JsonPropertyName("updates")]
     public List<Update>? Updates { get; set; }
-
-
-    public override string ToString()
-    {
-        return JsonSerializer.Serialize(this, new JsonSerializerOptions{WriteIndented = true });
-    }
 }
 
 public class Update

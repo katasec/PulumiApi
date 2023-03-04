@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace PulumiApi.Models;
 
-public class GetStackResponse
+public class GetStackResponse : BaseResponse
 {
     [JsonPropertyName("orgName")]
     public string? OrgName { get; set; }
@@ -29,10 +29,6 @@ public class GetStackResponse
     [JsonPropertyName("version")]
     public int? Version { get; set; }
 
-    public override string ToString()
-    {
-        return JsonSerializer.Serialize(this, new JsonSerializerOptions{WriteIndented = true });
-    }
 }
 
 public class CurrentOperation
