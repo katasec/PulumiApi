@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Title>A dotnet client for the Pulumi Service Rest API.</Title>
-    <Version>0.0.4</Version>
+    <Version>0.0.5</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/katasec/PulumiApi</PackageProjectUrl>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
