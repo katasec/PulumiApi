@@ -1,4 +1,6 @@
-﻿using System.Security.AccessControl;
+﻿using ArkServer.Entities.Azure;
+using System.Net.Http.Json;
+using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json.Serialization;
 
@@ -24,7 +26,7 @@ public class Deployment
     {
         if (Resources == null)  return null;
 
-        return GetResourceByName(type: "azure-native:resources:ResourceGroup", pulumiName);
+        return GetResourceNameByName(type: "azure-native:resources:ResourceGroup", pulumiName);
 
         //var x = Resources
         //    .Where(x => x.Type == "azure-native:resources:ResourceGroup")
@@ -44,16 +46,45 @@ public class Deployment
     {
         if (Resources == null) return null;
 
-        return GetResourceByName(type: "azure-native:network:VirtualNetwork", pulumiName);
+        return GetResourceNameByName(type: "azure-native:network:VirtualNetwork", pulumiName);
     }
 
-    private string? GetResourceByName(string type, string pulumiName)
+    public VNetSpec GetAzureVnetSpec(string pulumiName)
+    {
+        if (Resources == null) return null;
+
+        var x = GetResourceByName(type: "azure-native:network:VirtualNetwork", pulumiName);
+        //var y = x.Outputs;
+        //Console.WriteLine(y);
+        //var z = System.Text.Json.JsonSerializer.Deserialize<Something>(x.ToJson());
+
+        Console.WriteLine(x.Urn);
+        //x.Outputs[""]
+        return null;
+    }
+
+    public class Something
+    {
+        public string Urn { get; set; }
+    }
+    private string? GetResourceNameByName(string type, string pulumiName)
     {
         if (Resources == null) return null;
         var x = Resources
             .Where(x => x.Type == type)
             .Where(x => x.Urn != null && x.Urn.EndsWith(pulumiName))
             .Select(x => x.Outputs?["name"].ToString())
+            .FirstOrDefault();
+
+        return x;
+    }
+
+    public Resource? GetResourceByName(string type, string pulumiName)
+    {
+        if (Resources == null) return null;
+        var x = Resources
+            .Where(x => x.Type == type)
+            .Where(x => x.Urn != null && x.Urn.EndsWith(pulumiName))
             .FirstOrDefault();
 
         return x;

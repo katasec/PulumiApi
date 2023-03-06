@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace PulumiApi.Models;
 
@@ -15,4 +9,15 @@ public class GetStackStateResponse : BaseResponse
 
     [JsonPropertyName("deployment")]
     public Deployment? Deployment { get; set; }
+
+    public Resource? GetResourceByName(string type, string pulumiName)
+    {
+        if (Deployment == null || Deployment.Resources == null) return null;
+        var x = Deployment.Resources
+            .Where(x => x.Type == type)
+            .Where(x => x.Urn != null && x.Urn.EndsWith(pulumiName))
+            .FirstOrDefault();
+
+        return x;
+    }
 }

@@ -14,9 +14,9 @@ public class BaseResponse
 
 public static class BaseResponseExtensions
 {
-    public static string ToJson<T>(this T self) where T: BaseResponse
+    public static string? ToJson<T>(this T self) where T: BaseResponse?
     {
-        return JsonSerializer.Serialize<T>(self, new JsonSerializerOptions { WriteIndented = true });
+        return JsonSerializer.Serialize(self, new JsonSerializerOptions { WriteIndented = true });
     }
 
 }

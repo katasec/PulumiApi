@@ -1,5 +1,8 @@
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Resources;
+using Pulumi.AzureNative.Authorization;
 using PulumiApi.Models;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PulumiApi.Test
 {
@@ -62,6 +65,35 @@ namespace PulumiApi.Test
             if (result.Deployment != null)
             {
                 Console.WriteLine(result.Deployment.GetAzureVnet("ameer"));
+            }
+        }
+
+        [Test]
+        public async Task GetDeploymentResource()
+        {
+            var result = await client.GetStackState(orgName, projectName, stackName);
+
+            if (result.Deployment != null)
+            {
+                var resource = result.GetResourceByName(
+                    type: "azure-native:network:VirtualNetwork",
+                    pulumiName: "vnet-hub"
+                );
+
+                var myjson = resource.ToJson();
+                Console.WriteLine(myjson);
+            }
+        }
+
+
+        [Test]
+        public async Task GetVNetSpecFromStack()
+        {
+            var result = await client.GetStackState(orgName, projectName, stackName);
+
+            if (result.Deployment != null)
+            {
+                Console.WriteLine(result.Deployment.GetAzureVnetSpec("ameer"));
             }
         }
 

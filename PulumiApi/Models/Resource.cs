@@ -2,7 +2,7 @@
 
 namespace PulumiApi.Models;
 
-public partial class Resource
+public partial class Resource : BaseResponse
 {
     [JsonPropertyName("urn")]
     public string? Urn { get; set; }
