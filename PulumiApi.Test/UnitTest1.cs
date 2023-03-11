@@ -67,6 +67,7 @@ public class Tests
         if (result.Deployment != null)
         {
             Console.WriteLine(result.Deployment.GetAzureVnet("ameer"));
+            Console.WriteLine(result.Deployment.GetAzureVnetRg("ameer"));
         }
     }
 
@@ -79,7 +80,7 @@ public class Tests
         {
             var resource = result.GetResourceByName(
                 type: "azure-native:network:VirtualNetwork",
-                pulumiName: "vnet-hub"
+                pulumiName: "vnet-ameer"
             );
 
             var myjson = resource.ToJson();

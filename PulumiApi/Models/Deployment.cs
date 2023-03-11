@@ -50,6 +50,23 @@ public class Deployment
         return GetResourceNameByName(type: "azure-native:network:VirtualNetwork", pulumiName);
     }
 
+    /// <summary>
+    /// Returns the resource group name of the VNET in Azure
+    /// </summary>
+    /// <param name="pulumiName">Pulumi VNET name</param>
+    /// <returns></returns>
+    public string? GetAzureVnetRg(string pulumiName)
+    {
+        if (Resources == null) return null;
+        var id = Resources
+            .Where(x => x.Type == "azure-native:network:VirtualNetwork")
+            .Where(x => x.Urn != null && x.Urn.EndsWith(pulumiName))
+            .Select(x => x.Id)
+            .FirstOrDefault();
+        var resourceGroup = id?.Split('/')[4];
+        return resourceGroup;
+    }
+
     public VirtualNetworkState GetAzureVnetSpec(string pulumiName)
     {
         if (Resources == null) return null;
