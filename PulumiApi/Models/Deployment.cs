@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json.Serialization;
+using PulumiApi.Models.PulumiState.Azure;
 
 namespace PulumiApi.Models;
 
@@ -15,7 +16,7 @@ public class Deployment
     public SecretsProviders? SecretsProviders { get; set; }
 
     [JsonPropertyName("resources")]
-    public Resource[]? Resources { get; set; }
+    public required List<Resource> Resources { get; set; }
 
     /// <summary>
     /// Returns the real name of the resource group from Azure
@@ -49,18 +50,14 @@ public class Deployment
         return GetResourceNameByName(type: "azure-native:network:VirtualNetwork", pulumiName);
     }
 
-    public VNetSpec GetAzureVnetSpec(string pulumiName)
+    public VirtualNetworkState GetAzureVnetSpec(string pulumiName)
     {
         if (Resources == null) return null;
 
         var x = GetResourceByName(type: "azure-native:network:VirtualNetwork", pulumiName);
-        //var y = x.Outputs;
-        //Console.WriteLine(y);
-        //var z = System.Text.Json.JsonSerializer.Deserialize<Something>(x.ToJson());
-
-        Console.WriteLine(x.Urn);
-        //x.Outputs[""]
-        return null;
+        var y = x.ToJson();
+        var z = System.Text.Json.JsonSerializer.Deserialize<VirtualNetworkState>(y);
+        return z;
     }
 
     public class Something
